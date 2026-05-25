@@ -14,7 +14,7 @@ function SavedJobsPage() {
       const response = await API.get("/jobs/saved");
       setJobs(response.data);
     } catch (error) {
-      console.error(error.response?.data || error.message);
+    //   console.error(error.response?.data || error.message);
       alert("Failed to load saved jobs");
     }
   };

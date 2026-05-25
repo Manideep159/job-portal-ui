@@ -247,52 +247,74 @@ function JobsPage() {
 //   }
 // };
 
+//     const applyJob = async (jobId) => {
+
+//   if (!selectedResume) {
+//     toast.error("Please upload resume");
+//     return;
+//   }
+
+//   try {
+
+//     setApplyingJobId(jobId);
+
+//     const formData = new FormData();
+
+//     formData.append(
+//       "resume",
+//       selectedResume
+//     );
+
+//     await API.post(
+//       `/applications/${jobId}`,
+//       formData,
+//       {
+//         headers: {
+//           "Content-Type":
+//             "multipart/form-data",
+//         },
+//       }
+//     );
     const applyJob = async (jobId) => {
-
-  if (!selectedResume) {
-    toast.error("Please upload resume");
-    return;
-  }
-
   try {
-
     setApplyingJobId(jobId);
 
-    const formData = new FormData();
+    const response = await API.post(`/applications/${jobId}`);
 
-    formData.append(
-      "resume",
-      selectedResume
-    );
+    toast.success("Application saved. Redirecting to official site...");
 
-    await API.post(
-      `/applications/${jobId}`,
-      formData,
-      {
-        headers: {
-          "Content-Type":
-            "multipart/form-data",
-        },
-      }
-    );
+    if (response.data.applyLink) {
+      window.open(response.data.applyLink, "_blank");
+    }
+  } catch (error) {
+    const message =
+      error.response?.data?.message ||
+      error.response?.data?.error ||
+      "Failed to apply";
+
+    toast.error(message);
+  } finally {
+    setApplyingJobId(null);
+  }
+};
 
     toast.success(
       "Applied successfully"
     );
 
-  } catch (error) {
+//   } catch (error) {
 
-    const message =
-      error.response?.data?.message ||
-      "Failed to apply";
+//     const message =
+//       error.response?.data?.message ||
+//       "Failed to apply";
 
-    toast.error(message);
+//     toast.error(message);
 
-  } finally {
+//   } finally {
 
-    setApplyingJobId(null);
-  }
-};
+//     setApplyingJobId(null);
+//   }
+// };
   const filteredJobs = jobs.filter((job) => {
     const matchesSearch = job.title
       .toLowerCase()
