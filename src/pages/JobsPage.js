@@ -1,182 +1,3 @@
-// import { useEffect, useState } from "react";
-// import API from "../services/api";
-// import Navbar from "../components/Navbar";
-
-// function JobsPage() {
-//   const [jobs, setJobs] = useState([]);
-//   const [search, setSearch] = useState("");
-//   const [jobTypeFilter, setJobTypeFilter] = useState("");
-//   const [page, setPage] = useState(0);
-//   const [totalPages, setTotalPages] = useState(0);
-
-//   useEffect(() => {
-//     loadJobs();
-//   }, [page]);
-
-//   const loadJobs = async () => {
-//     try {
-//       const response = await API.get(`/jobs/page?page=${page}&size=5`);
-//       setJobs(response.data.content);
-//       setTotalPages(response.data.totalPages);
-//     } catch (error) {
-//       console.error(error.response?.data || error.message);
-//       alert("Failed to load jobs");
-//     }
-//   };
-
-//   const applyJob = async (jobId) => {
-//     try {
-//       await API.post(`/applications/${jobId}`);
-//       alert("Applied successfully");
-//     } catch (error) {
-//       console.error(error.response?.data || error.message);
-//       alert("Failed to apply");
-//     }
-//   };
-
-//   const filteredJobs = jobs.filter((job) => {
-//     const matchesSearch = job.title
-//       .toLowerCase()
-//       .includes(search.toLowerCase());
-
-//     const matchesType =
-//       jobTypeFilter === "" ? true : job.type === jobTypeFilter;
-
-//     return matchesSearch && matchesType;
-//   });
-
-//   return (
-//     <div>
-//       <Navbar />
-
-//       <div style={{ padding: "20px" }}>
-//         <h2>Available Jobs</h2>
-
-//         <input
-//           type="text"
-//           placeholder="Search jobs..."
-//           value={search}
-//           onChange={(e) => setSearch(e.target.value)}
-//           style={{
-//             padding: "10px",
-//             width: "300px",
-//             marginBottom: "20px",
-//           }}
-//         />
-
-//         <div style={{ marginBottom: "20px" }}>
-//           <button
-//             onClick={() => setJobTypeFilter("")}
-//             style={{ marginRight: "10px" }}
-//           >
-//             All
-//           </button>
-
-//           <button
-//             onClick={() => setJobTypeFilter("GOVT")}
-//             style={{
-//               marginRight: "10px",
-//               backgroundColor: "#2563eb",
-//               color: "white",
-//             }}
-//           >
-//             Govt
-//           </button>
-
-//           <button
-//             onClick={() => setJobTypeFilter("PRIVATE")}
-//             style={{
-//               backgroundColor: "#16a34a",
-//               color: "white",
-//             }}
-//           >
-//             Private
-//           </button>
-//         </div>
-
-//         {filteredJobs.map((job) => (
-//           <div
-//             key={job.id}
-//             style={{
-//               border: "1px solid #ccc",
-//               borderRadius: "10px",
-//               padding: "20px",
-//               marginBottom: "20px",
-//               boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
-//             }}
-//           >
-//             <h3>{job.title}</h3>
-
-//             <p>
-//               <strong>Company:</strong> {job.company}
-//             </p>
-
-//             <p>
-//               <strong>Location:</strong> {job.location}
-//             </p>
-
-//             <p>
-//               <strong>Description:</strong> {job.description}
-//             </p>
-
-//             <span
-//               style={{
-//                 backgroundColor: job.type === "GOVT" ? "#2563eb" : "#16a34a",
-//                 color: "white",
-//                 padding: "5px 10px",
-//                 borderRadius: "5px",
-//               }}
-//             >
-//               {job.type}
-//             </span>
-
-//             <br />
-//             <br />
-
-//             <button
-//               onClick={() => applyJob(job.id)}
-//               style={{
-//                 padding: "10px 15px",
-//                 backgroundColor: "#111827",
-//                 color: "white",
-//                 border: "none",
-//                 cursor: "pointer",
-//                 borderRadius: "5px",
-//               }}
-//             >
-//               Apply
-//             </button>
-//           </div>
-//         ))}
-
-//         <div style={{ marginTop: "20px" }}>
-//           <button
-//             disabled={page === 0}
-//             onClick={() => setPage(page - 1)}
-//             style={{ marginRight: "10px" }}
-//           >
-//             Previous
-//           </button>
-
-//           <span>
-//             Page {page + 1} of {totalPages}
-//           </span>
-
-//           <button
-//             disabled={page + 1 >= totalPages}
-//             onClick={() => setPage(page + 1)}
-//             style={{ marginLeft: "10px" }}
-//           >
-//             Next
-//           </button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default JobsPage;
-// import { useEffect, useState } from "react";
 import { useEffect, useState, useCallback } from "react";
 import API from "../services/api";
 import Navbar from "../components/Navbar";
@@ -192,9 +13,6 @@ function JobsPage() {
   const [savingJobId, setSavingJobId] = useState(null);
   const [selectedResume, setSelectedResume] = useState(null);
 
-  // useEffect(() => {
-  //   loadJobs();
-  // }, [loadJobs]);
 
   const loadJobs = useCallback(async () => {
   try {
@@ -233,13 +51,18 @@ function JobsPage() {
   }
 };
 
-//   const applyJob = async (jobId) => {
+
+//     const applyJob = async (jobId) => {
 //   try {
 //     setApplyingJobId(jobId);
 
-//     await API.post(`/applications/${jobId}`);
+//     const response = await API.post(`/applications/${jobId}`);
 
-//     toast.success("Applied successfully");
+//     toast.success("Application saved. Redirecting to official site...");
+
+//     if (response.data.applyLink) {
+//       window.open(response.data.applyLink, "_blank");
+//     }
 //   } catch (error) {
 //     const message =
 //       error.response?.data?.message ||
@@ -251,75 +74,61 @@ function JobsPage() {
 //     setApplyingJobId(null);
 //   }
 // };
+  
+ const applyJob = async (jobId) => {
 
-//     const applyJob = async (jobId) => {
+  if (!selectedResume) {
+    toast.error("Please upload resume");
+    return;
+  }
 
-//   if (!selectedResume) {
-//     toast.error("Please upload resume");
-//     return;
-//   }
-
-//   try {
-
-//     setApplyingJobId(jobId);
-
-//     const formData = new FormData();
-
-//     formData.append(
-//       "resume",
-//       selectedResume
-//     );
-
-//     await API.post(
-//       `/applications/${jobId}`,
-//       formData,
-//       {
-//         headers: {
-//           "Content-Type":
-//             "multipart/form-data",
-//         },
-//       }
-//     );
-    const applyJob = async (jobId) => {
   try {
+
     setApplyingJobId(jobId);
 
-    const response = await API.post(`/applications/${jobId}`);
+    const formData = new FormData();
 
-    toast.success("Application saved. Redirecting to official site...");
+    formData.append(
+      "resume",
+      selectedResume
+    );
+
+    const response = await API.post(
+      `/applications/${jobId}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    toast.success(
+      "Application submitted successfully"
+    );
 
     if (response.data.applyLink) {
-      window.open(response.data.applyLink, "_blank");
+      window.open(
+        response.data.applyLink,
+        "_blank"
+      );
     }
+
   } catch (error) {
+
     const message =
       error.response?.data?.message ||
       error.response?.data?.error ||
       "Failed to apply";
 
     toast.error(message);
+
   } finally {
+
     setApplyingJobId(null);
   }
 };
 
-    // toast.success(
-    //   "Applied successfully"
-    // );
-
-//   } catch (error) {
-
-//     const message =
-//       error.response?.data?.message ||
-//       "Failed to apply";
-
-//     toast.error(message);
-
-//   } finally {
-
-//     setApplyingJobId(null);
-//   }
-// };
   const filteredJobs = jobs.filter((job) => {
     const matchesSearch = job.title
       .toLowerCase()
