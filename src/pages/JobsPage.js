@@ -176,7 +176,8 @@
 // }
 
 // export default JobsPage;
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import API from "../services/api";
 import Navbar from "../components/Navbar";
 import { toast } from "react-toastify";
@@ -191,24 +192,28 @@ function JobsPage() {
   const [savingJobId, setSavingJobId] = useState(null);
   const [selectedResume, setSelectedResume] = useState(null);
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   loadJobs();
+  // }, [loadJobs]);
+
+  const loadJobs = useCallback(async () => {
+  try {
+    const response = await API.get(`/jobs/page?page=${page}&size=5`);
+    setJobs(response.data.content);
+    setTotalPages(response.data.totalPages);
+  } catch (error) {
+    const message =
+      error.response?.data?.message ||
+      error.response?.data?.error ||
+      "Failed to load jobs";
+
+    toast.error(message);
+  }
+}, [page]);
+   useEffect(() => {
     loadJobs();
-  }, [page]);
+  }, [loadJobs]);
 
-  const loadJobs = async () => {
-    try {
-      const response = await API.get(`/jobs/page?page=${page}&size=5`);
-      setJobs(response.data.content);
-      setTotalPages(response.data.totalPages);
-    } catch (error) {
-  const message =
-    error.response?.data?.message ||
-    error.response?.data?.error ||
-    "Failed to load jobs";
-
-  toast.error(message);
-}
-  };
  const saveJob = async (jobId) => {
   try {
     setSavingJobId(jobId);
@@ -298,9 +303,9 @@ function JobsPage() {
   }
 };
 
-    toast.success(
-      "Applied successfully"
-    );
+    // toast.success(
+    //   "Applied successfully"
+    // );
 
 //   } catch (error) {
 
