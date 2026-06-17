@@ -11,7 +11,8 @@ function JobsPage() {
   const [totalPages, setTotalPages] = useState(0);
   const [applyingJobId, setApplyingJobId] = useState(null);
   const [savingJobId, setSavingJobId] = useState(null);
-  const [selectedResume, setSelectedResume] = useState(null);
+  // const [selectedResume, setSelectedResume] = useState(null);
+  // const [selectedResume] = useState(null);
 
 
   const loadJobs = useCallback(async () => {
@@ -88,10 +89,10 @@ function JobsPage() {
 
     const formData = new FormData();
 
-    formData.append(
-      "resume",
-      selectedResume
-    );
+    // formData.append(
+    //   "resume",
+    //   selectedResume
+    // );
 
     const response = await API.post(
       `/applications/${jobId}`,
