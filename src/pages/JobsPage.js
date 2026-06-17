@@ -77,10 +77,10 @@ function JobsPage() {
   
  const applyJob = async (jobId) => {
 
-  if (!selectedResume) {
-    toast.error("Please upload resume");
-    return;
-  }
+  // if (!selectedResume) {
+  //   toast.error("Please upload resume");
+  //   return;
+  // }
 
   try {
 
@@ -218,13 +218,13 @@ function JobsPage() {
 >
                   {savingJobId === job.id ? "Saving..." : "Save"}
                  </button>
-                 <input
+                 {/* <input
                     type="file"
                     className="form-control mb-2"
                     onChange={(e) =>
                     setSelectedResume(e.target.files[0])
-  }
-/>
+  } */}
+{/* /> */}
 
                 <button
                   className="btn btn-dark"

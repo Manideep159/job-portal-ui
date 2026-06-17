@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import API from "../services/api";
 import Navbar from "../components/Navbar";
 import { toast } from "react-toastify";
@@ -8,6 +8,8 @@ function ProfilePage() {
   const [profile, setProfile] = useState(null);
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [resume, setResume] = useState(null);
+  const [uploadingResume, setUploadingResume] = useState(false);
 
 const [formData, setFormData] = useState({
   userName: "",
@@ -98,6 +100,55 @@ const updateProfile = async () => {
     </div>
   );
   }
+  const uploadResume = async () => {
+
+  if (!resume) {
+    toast.error("Please select a resume");
+    return;
+  }
+
+  try {
+
+    setUploadingResume(true);
+
+    const formData = new FormData();
+
+    formData.append(
+      "resume",
+      resume
+    );
+
+    await API.post(
+      "/profile/upload-resume",
+      formData,
+      {
+        headers: {
+          "Content-Type":
+            "multipart/form-data"
+        }
+      }
+    );
+
+    toast.success(
+      "Resume uploaded successfully"
+    );
+
+    loadProfile();
+
+  } catch (error) {
+
+    const message =
+      error.response?.data?.message ||
+      error.response?.data?.error ||
+      "Resume upload failed";
+
+    toast.error(message);
+
+  } finally {
+
+    setUploadingResume(false);
+  }
+};
 
   return (
 
@@ -145,6 +196,43 @@ const updateProfile = async () => {
             {" "}
             {profile.savedJobs}
           </p>
+
+        <hr />
+
+<h5>Resume</h5>
+
+<input
+  type="file"
+  className="form-control mb-3"
+  accept=".pdf,.doc,.docx"
+  onChange={(e) =>
+    setResume(e.target.files[0])
+  }
+/>
+
+<button
+  className="btn btn-primary"
+  onClick={uploadResume}
+  disabled={uploadingResume}
+>
+  {uploadingResume
+    ? "Uploading..."
+    : "Upload Resume"}
+</button>
+
+{profile.resumePath && (
+  <div className="mt-3">
+    <a
+      href={profile.resumePath}
+      target="_blank"
+      rel="noreferrer"
+      className="btn btn-success"
+    >
+      View Resume
+    </a>
+  </div>
+)}
+
          <button
     className="btn btn-primary mt-3"
     onClick={() => setEditing(!editing)}

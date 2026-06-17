@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from 'react-router-dom';
 
 
 
@@ -50,6 +51,12 @@ function Navbar() {
 >
              Profile
          </button>
+               <Link
+                  className="nav-link"
+                  to="/profile"
+            >
+              My Profile
+                </Link>
 
         <button
           className="btn btn-outline-light me-2"
