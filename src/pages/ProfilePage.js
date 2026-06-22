@@ -10,6 +10,7 @@ function ProfilePage() {
   const [saving, setSaving] = useState(false);
   const [resume, setResume] = useState(null);
   const [uploadingResume, setUploadingResume] = useState(false);
+ 
 
 const [formData, setFormData] = useState({
   userName: "",
@@ -113,29 +114,20 @@ const updateProfile = async () => {
 
     const formData = new FormData();
 
-    formData.append(
-      "resume",
-      resume
-    );
+    formData.append("resume", resume);
 
     await API.post(
-      "/profile/upload-resume",
-      formData,
-      {
-        headers: {
-          "Content-Type":
-            "multipart/form-data"
-        }
-      }
+      "/users/profile/upload-resume",
+      formData
     );
 
-    toast.success(
-      "Resume uploaded successfully"
-    );
+    toast.success("Resume uploaded successfully");
 
     loadProfile();
 
   } catch (error) {
+
+    console.error(error);
 
     const message =
       error.response?.data?.message ||
@@ -147,8 +139,58 @@ const updateProfile = async () => {
   } finally {
 
     setUploadingResume(false);
+
   }
 };
+//   const uploadResume = async () => {
+
+//   if (!resume) {
+//     toast.error("Please select a resume");
+//     return;
+//   }
+
+//   try {
+
+//     setUploadingResume(true);
+
+//     const formData = new FormData();
+
+//     formData.append(
+//       "resume",
+//       resume
+//     );
+
+//     await API.post(
+//       "/users/profile/upload-resume",
+//       formData,
+//       {
+//         headers: {
+//           "Content-Type":
+//             "multipart/form-data"
+//         }
+//       }
+//     );
+
+//     toast.success(
+//       "Resume uploaded successfully"
+//     );
+
+//     loadProfile();
+
+//   } catch (error) {
+
+//     const message =
+//       error.response?.data?.message ||
+//       error.response?.data?.error ||
+//       "Resume upload failed";
+
+//     toast.error(message);
+
+//   } finally {
+
+//     setUploadingResume(false);
+//   }
+// };
 
   return (
 
