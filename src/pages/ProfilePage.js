@@ -253,7 +253,7 @@ const updateProfile = async () => {
 />
 
 <button
-  className="btn btn-primary"
+  className="btn btn-primary me-2"
   onClick={uploadResume}
   disabled={uploadingResume}
 >
@@ -265,7 +265,7 @@ const updateProfile = async () => {
 {profile.resumePath && (
   <div className="mt-3">
     <a
-      href={profile.resumePath}
+      href={`https://job-portal-backend-9ia9.onrender.com/uploads/${profile.resumePath}`}
       target="_blank"
       rel="noreferrer"
       className="btn btn-success"
