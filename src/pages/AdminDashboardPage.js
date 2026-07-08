@@ -94,25 +94,29 @@ const updateStatus = async (id, status) => {
     setUpdatingId(null);
   }
 };
-const viewResume = async (applicationId) => {
+const viewResume = (resumePath) => {
   try {
 
-    const response = await API.get(
-      `/admin/applications/${applicationId}/resume`,
-      {
-        responseType: "blob",
-      }
+    // const response = await API.get(
+    //   `/admin/applications/${applicationId}/resume`,
+    //   {
+    //     responseType: "blob",
+    //   }
+    // );
+    window.open(
+        `${process.env.REACT_APP_API_URL}/uploads/${resumePath}`,
+        "_blank"
     );
 
-    const blob = new Blob(
-      [response.data],
-      { type: "application/pdf" }
-    );
+    // const blob = new Blob(
+    //   [response.data],
+    //   { type: "application/pdf" }
+    // );
 
-    const fileURL =
-      window.URL.createObjectURL(blob);
+    // const fileURL =
+    //   window.URL.createObjectURL(blob);
 
-    window.open(fileURL);
+    // window.open(fileURL);
 
   } catch (error) {
 
@@ -246,14 +250,14 @@ const viewResume = async (applicationId) => {
    {app.resumePath ? (
     <button
         className="btn btn-success"
-        onClick={() =>
-            window.open(
-                `https://job-portal-backend-9ia9.onrender.com/uploads/${app.resumePath}`,
-                "_blank"
-            )
-        }
+        onClick={() => viewResume(app.resumePath)}
+        //     window.open(
+        //         `https://job-portal-backend-9ia9.onrender.com/uploads/${app.resumePath}`,
+        //         "_blank"
+        //     )
+        // }
     >
-        View Resume
+        ViewResume
     </button>
 ) : (
     <span>No Resume</span>
