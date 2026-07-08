@@ -243,12 +243,21 @@ const viewResume = async (applicationId) => {
           >
             REJECTED
           </button>
-          <button
-           className="btn btn-outline-dark me-2"
-           onClick={() => viewResume(app.id)}
->
-           View Resume
-</button>
+   {app.resumePath ? (
+    <button
+        className="btn btn-success"
+        onClick={() =>
+            window.open(
+                `https://job-portal-backend-9ia9.onrender.com/uploads/${app.resumePath}`,
+                "_blank"
+            )
+        }
+    >
+        View Resume
+    </button>
+) : (
+    <span>No Resume</span>
+)}
 
           <hr />
 

@@ -118,7 +118,12 @@ const updateProfile = async () => {
 
     await API.post(
       "/users/profile/upload-resume",
-      formData
+      formData,
+       {
+        headers: {
+            "Content-Type": "multipart/form-data"
+        }
+    }
     );
 
     toast.success("Resume uploaded successfully");
@@ -263,16 +268,17 @@ const updateProfile = async () => {
 </button>
 
 {profile.resumePath && (
-  <div className="mt-3">
-    <a
-      href={`https://job-portal-backend-9ia9.onrender.com/uploads/${profile.resumePath}`}
-      target="_blank"
-      rel="noreferrer"
-      className="btn btn-success"
+   <button
+        className="btn btn-primary"
+        onClick={() =>
+            window.open(
+                `https://job-portal-backend-9ia9.onrender.com/uploads/${profile.resumePath}`,
+                "_blank"
+            )
+        }
     >
-      View Resume
-    </a>
-  </div>
+        View Resume
+    </button>
 )}
 
          <button
