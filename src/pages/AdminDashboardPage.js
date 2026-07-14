@@ -103,10 +103,12 @@ const viewResume = (resumePath) => {
     //     responseType: "blob",
     //   }
     // );
-    window.open(
-        `${process.env.REACT_APP_API_URL}/uploads/${resumePath}`,
-        "_blank"
-    );
+    // window.open(
+    //     `${process.env.REACT_APP_API_URL}/uploads/${resumePath}`,
+    //     "_blank"
+    // );
+
+    window.open(profile.resumePath, "_blank");
 
     // const blob = new Blob(
     //   [response.data],

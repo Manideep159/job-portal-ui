@@ -271,10 +271,11 @@ const updateProfile = async () => {
    <button
         className="btn btn-primary"
         onClick={() =>
-            window.open(
-                `https://job-portal-backend-9ia9.onrender.com/uploads/${profile.resumePath}`,
-                "_blank"
-            )
+            // window.open(
+            //     `https://job-portal-backend-9ia9.onrender.com/uploads/${profile.resumePath}`,
+            //     "_blank"
+            // )
+            window.open(app.resumePath, "_blank")
         }
     >
         View Resume
