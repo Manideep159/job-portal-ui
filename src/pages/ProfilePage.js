@@ -275,7 +275,7 @@ const updateProfile = async () => {
             //     `https://job-portal-backend-9ia9.onrender.com/uploads/${profile.resumePath}`,
             //     "_blank"
             // )
-            window.open(app.resumePath, "_blank")
+            window.open(profile.resumePath, "_blank")
         }
     >
         View Resume

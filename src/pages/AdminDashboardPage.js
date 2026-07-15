@@ -97,28 +97,7 @@ const updateStatus = async (id, status) => {
 const viewResume = (resumePath) => {
   try {
 
-    // const response = await API.get(
-    //   `/admin/applications/${applicationId}/resume`,
-    //   {
-    //     responseType: "blob",
-    //   }
-    // );
-    // window.open(
-    //     `${process.env.REACT_APP_API_URL}/uploads/${resumePath}`,
-    //     "_blank"
-    // );
-
-    window.open(profile.resumePath, "_blank");
-
-    // const blob = new Blob(
-    //   [response.data],
-    //   { type: "application/pdf" }
-    // );
-
-    // const fileURL =
-    //   window.URL.createObjectURL(blob);
-
-    // window.open(fileURL);
+    window.open(resumePath, "_blank");
 
   } catch (error) {
 
@@ -205,7 +184,14 @@ const viewResume = (resumePath) => {
 
       {applications.map((app) => (
 
-        <div key={app.id}>
+        <div  key={app.id}
+    style={{
+        border: "1px solid #ddd",
+        borderRadius: "10px",
+        padding: "20px",
+        marginBottom: "20px",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
+    }}>
 
           <h3>{app.jobTitle}</h3>
 
@@ -251,18 +237,22 @@ const viewResume = (resumePath) => {
           </button>
    {app.resumePath ? (
     <button
-        className="btn btn-success"
+        className="btn btn-success ms-2"
         onClick={() => viewResume(app.resumePath)}
-        //     window.open(
-        //         `https://job-portal-backend-9ia9.onrender.com/uploads/${app.resumePath}`,
-        //         "_blank"
-        //     )
-        // }
-    >
+      
+      >
         ViewResume
     </button>
 ) : (
-    <span>No Resume</span>
+    <span
+        style={{
+            color: "red",
+            marginLeft: "10px",
+            fontWeight: "bold"
+        }}
+    >
+        No Resume
+    </span>
 )}
 
           <hr />
@@ -276,7 +266,7 @@ const viewResume = (resumePath) => {
 const cardStyle = {
   border: "1px solid #ccc",
   padding: "15px",
-  borderRadius: "10px",
+  borderRadius: "10px", 
   minWidth: "120px",
   textAlign: "center",
   boxShadow: "0 2px 5px rgba(0,0,0,0.1)"
