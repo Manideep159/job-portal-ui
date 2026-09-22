@@ -3,6 +3,19 @@ import API from "../services/api";
 import Navbar from "../components/Navbar";
 import { toast } from "react-toastify";
 
+
+const isNewJob = (createdAt) => {
+  if (!createdAt) {
+    return false;
+  }
+  const jobDate = new Date(createdAt);
+  const now = new Date();
+  const difference = now.getTime() - jobDate.getTime();
+  const hours = difference / (1000 * 60 * 60);
+
+  return hours <= 24;
+};
+
 function JobsPage() {
   const [jobs, setJobs] = useState([]);
   const [search, setSearch] = useState("");
@@ -185,7 +198,22 @@ function JobsPage() {
           filteredJobs.map((job) => (
             <div key={job.id} className="card mb-4 shadow-sm">
               <div className="card-body">
-                <h4 className="card-title">{job.title}</h4>
+                {/* <h4 className="card-title"><span>{job.title}</span></h4>
+
+                  {isNewJob(job.createdAt) && (
+                  <span className="new-badge">
+                     NEW
+                  </span>
+                  )}   */}
+                  <h4 className="card-title">
+                   <span>{job.title}</span>
+
+                   {isNewJob(job.createdAt) && (
+                   <span className="new-badge">
+                     NEW
+                   </span>
+          )}
+        </h4>
 
                 <p>
                   <strong>Company:</strong> {job.company}
@@ -193,6 +221,12 @@ function JobsPage() {
 
                 <p>
                   <strong>Location:</strong> {job.location}
+                </p>
+
+                <p>
+                  <strong>Last Date:</strong>{" "}
+                    {job.lastDate ? new Date(job.lastDate).toLocaleDateString("en-IN")
+                     : "Not specified"}
                 </p>
 
                 <p>
