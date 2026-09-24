@@ -230,6 +230,13 @@ function JobsPage() {
                 </p>
 
                 <p>
+                 <strong>Created At:</strong>{" "}
+                     {job.createdAt
+                      ? new Date(job.createdAt).toLocaleString("en-IN")
+                      : "Not available"}
+                </p>
+
+                <p>
                   <strong>Description:</strong> {job.description}
                 </p>
 
