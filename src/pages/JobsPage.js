@@ -30,7 +30,8 @@ function JobsPage() {
 
   const loadJobs = useCallback(async () => {
   try {
-    const response = await API.get(`/jobs/page?page=${page}&size=5`);
+    // const response = await API.get(`/jobs/page?page=${page}&size=5`);
+    const response = await API.get(`/jobs/page?page=${page}&size=5${jobTypeFilter ? `&type=${jobTypeFilter}` : ""}`);
     setJobs(response.data.content);
     setTotalPages(response.data.totalPages);
   } catch (error) {
