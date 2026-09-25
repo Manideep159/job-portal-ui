@@ -169,7 +169,7 @@ function JobsPage() {
           onChange={(e) => setSearch(e.target.value)}
         />
 
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <button
             className="btn btn-secondary me-2"
             onClick={() => setJobTypeFilter("")}
@@ -190,6 +190,46 @@ function JobsPage() {
           >
             Private
           </button>
+        </div> */}
+
+      <div className="job-type-buttons mb-4">
+
+      <button
+         type="button"
+         className={`btn ${
+            jobTypeFilter === ""
+                ? "btn-primary"
+                : "btn-outline-primary"
+          } me-2`}
+            onClick={() => setJobTypeFilter("")}
+         >
+           All Jobs
+       </button>
+
+        <button
+          type="button"
+          className={`btn ${
+          jobTypeFilter === "PRIVATE"
+                ? "btn-success"
+                : "btn-outline-success"
+           } me-2`}
+          onClick={() => setJobTypeFilter("PRIVATE")}
+          >
+           Private Jobs
+         </button>
+
+         <button
+           type="button"
+           className={`btn ${
+            jobTypeFilter === "GOVT"
+                ? "btn-primary"
+                : "btn-outline-primary"
+            }`}
+           onClick={() => setJobTypeFilter("GOVT")}
+         > 
+           Government Jobs
+         </button>
+
         </div>
 
         {filteredJobs.length === 0 ? (
