@@ -144,14 +144,11 @@ function JobsPage() {
   }
 };
 
-  const filteredJobs = jobs.filter((job) => {
-    (job.title || "").toLowerCase().includes(search.toLowerCase());
-
-    const matchesType =
-      jobTypeFilter === "" ? true : job.type === jobTypeFilter;
-
-    return matchesSearch && matchesType;
-  });
+const filteredJobs = jobs.filter((job) =>
+    (job.title || "")
+        .toLowerCase()
+        .includes(search.toLowerCase())
+);  
 
   return (
     <div>
