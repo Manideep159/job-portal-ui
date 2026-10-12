@@ -42,7 +42,7 @@ function JobsPage() {
 
     toast.error(message);
   }
-}, [page]);
+}, [page, jobTypeFilter]);
    useEffect(() => {
     loadJobs();
   }, [loadJobs]);
@@ -202,7 +202,9 @@ function JobsPage() {
                 ? "btn-primary"
                 : "btn-outline-primary"
           } me-2`}
-            onClick={() => setJobTypeFilter("")}
+            onClick={() => {setJobTypeFilter("")
+              setPage(0);
+            }}
          >
            All Jobs
        </button>
@@ -214,7 +216,9 @@ function JobsPage() {
                 ? "btn-success"
                 : "btn-outline-success"
            } me-2`}
-          onClick={() => setJobTypeFilter("PRIVATE")}
+          onClick={() => {setJobTypeFilter("PRIVATE")
+            setPage(0);
+          }}
           >
            Private Jobs
          </button>
@@ -226,7 +230,9 @@ function JobsPage() {
                 ? "btn-primary"
                 : "btn-outline-primary"
             }`}
-           onClick={() => setJobTypeFilter("GOVT")}
+           onClick={() => {setJobTypeFilter("GOVT")
+            setPage(0);
+           }}
          > 
            Government Jobs
          </button>
