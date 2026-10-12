@@ -145,9 +145,7 @@ function JobsPage() {
 };
 
   const filteredJobs = jobs.filter((job) => {
-    const matchesSearch = job.title
-      .toLowerCase()
-      .includes(search.toLowerCase());
+    (job.title || "").toLowerCase().includes(search.toLowerCase());
 
     const matchesType =
       jobTypeFilter === "" ? true : job.type === jobTypeFilter;
